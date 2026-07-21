@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HERALD — R7 Hero Card on Film</title>
+  <meta name="description" content="status-herald — spotlight plate with the curtain card floating on the film. Cover / reveal made literal." />
+  <meta name="theme-color" content="#000000" />
+  <style>html,body{background:#000;color:#f5edd8}</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Source+Sans+3:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+  <link rel="stylesheet" href="/src/r7-responsive.css" />
+</head>
+<body class="curtain-call">
+
+  <div class="stage-proscenium" aria-hidden="true">
+    <div class="curtain panel left"><div class="pleats"></div><div class="fringe"></div></div>
+    <div class="curtain panel right"><div class="pleats"></div><div class="fringe"></div></div>
+    <div class="valance"><div class="fringe valance-fringe"></div></div>
+  </div>
+
+  <header class="nav">
+    <a class="nav-mark" href="#top">HERALD</a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#problem">Problem</a>
+      <a href="#solution">Solution</a>
+      <a href="#pillars">Pillars</a>
+      <a href="#quickstart">Quickstart</a>
+      <a href="#feature">Feature</a>
+    </nav>
+    <a class="nav-cta" href="https://github.com/muslewski/status-herald" target="_blank" rel="noopener">GitHub →</a>
+  </header>
+
+  <main id="top" class="main-pad">
+    <!-- HERO: card floating on spotlight film -->
+    <section class="hero hero-on-film" aria-label="Hero">
+      <p class="eyebrow reveal">R7 · HERO · CARD ON FILM</p>
+      <h1 class="reveal"><span class="wordmark">HERALD</span></h1>
+      <p class="tagline reveal">The curtain parts — the card speaks.<br>The product card sits on the spotlight plate — cover made visible.</p>
+      <div class="states-row reveal">
+        <span class="state working">● WORKING</span>
+        <span class="state done">✅ DONE</span>
+        <span class="state needs">⚠ NEEDS YOU</span>
+      </div>
+
+      <div class="stage-plate reveal">
+        <div class="vid-frame">
+          <video preload="none" data-r7 data-auto muted loop playsinline poster="/posters/v01.jpg">
+            <source src="/video/v01.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="float-card">
+          <div class="curtain-card">
+            <div class="card-top">
+              <span class="card-glyph" data-demo-glyph>●</span>
+              <span class="card-label" data-demo-label>WORKING</span>
+              <span class="card-timer">1:24</span>
+            </div>
+            <div class="card-meta">2 subagents · session grid-a</div>
+            <p class="card-hint">Any key reveals the live pane</p>
+          </div>
+        </div>
+      </div>
+      <p class="hero-cap reveal">v01 · spotlight · card overlays the plate</p>
+
+      <div class="bar-strip reveal">
+        <div class="statusline-chip" data-bar-chip>● WORKING</div>
+        <div class="tmux-bar">
+          <span class="tb-sess">call</span>
+          <span class="tb-win">1:claude*</span>
+          <span class="tb-win dim">2:grok</span>
+          <span class="tb-spacer"></span>
+          <span class="tb-gauge">ctx 51%</span>
+          <span class="tb-state">● WORKING</span>
+        </div>
+      </div>
+      <div class="hero-actions reveal">
+        <a class="btn-gold" href="#quickstart">Part the curtain</a>
+        <a class="btn-ghost" href="https://github.com/muslewski/status-herald" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </section>
+
+    <div class="stage-sill" aria-hidden="true"><span class="stage-sill-line"></span></div>
+
+    <section id="problem" class="section">
+      <div class="section-inner">
+        <p class="section-kicker reveal">Before the draw</p>
+        <h2 class="reveal">Agent fleets vanish when unfocused</h2>
+        <div class="problem-grid">
+          <article class="problem-card reveal"><h3>Invisible work</h3><p>A grid of panes. Only the focused one is legible. The rest are black rectangles — thinking, stuck, or waiting on you?</p></article>
+          <article class="problem-card reveal"><h3>Stuck WORKING</h3><p>Turn ended, subagents still live. Or the reverse: the card never settles.</p></article>
+          <article class="problem-card reveal"><h3>No status language</h3><p>Claude hooks, Grok payloads, different field names. Without a herald, every agent speaks a private dialect.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="solution" class="section section-alt">
+      <div class="section-inner">
+        <p class="section-kicker reveal">The draw</p>
+        <h2 class="reveal">Curtain cards. Clear signals. One CLI.</h2>
+        <ul class="solution-list">
+          <li class="reveal"><strong>Stage draw</strong> — opaque curtain cards cover unfocused agent panes; focus reveals the live session.</li>
+          <li class="reveal"><strong>Hooks for Claude + Grok</strong> — normalized payloads; same cards for both fleets.</li>
+          <li class="reveal"><strong>● WORKING / ✅ DONE / ⚠ NEEDS YOU</strong> — operational drama, not noise.</li>
+          <li class="reveal"><strong>Bottom bars</strong> — Claude statusline chip + tmux strip.</li>
+          <li class="reveal"><strong>Zero runtime deps</strong> — install alone; siblings optional.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="pillars" class="section">
+      <div class="section-inner">
+        <p class="section-kicker reveal">Craft</p>
+        <h2 class="reveal">Four pillars of the house</h2>
+        <div class="pillars">
+          <article class="pillar reveal"><span class="pillar-num">01</span><h3>Multi-agent hooks</h3><p>Claude and Grok stamp the same stage.</p></article>
+          <article class="pillar reveal"><span class="pillar-num">02</span><h3>Truth leases</h3><p>Settle to DONE when the stage is clear.</p></article>
+          <article class="pillar reveal"><span class="pillar-num">03</span><h3>Cover / reveal</h3><p>Unfocused panes wear the card; any key parts the curtain.</p></article>
+          <article class="pillar reveal"><span class="pillar-num">04</span><h3>Fail-open</h3><p>Missing tools soft-fail. The house stays dark, not broken.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="quickstart" class="section section-alt">
+      <div class="section-inner">
+        <p class="section-kicker reveal">Cue</p>
+        <h2 class="reveal">Raise the curtain</h2>
+        <div class="cmd-list reveal">
+          <div class="cmd-row"><code id="c1">herald curtain install</code><button type="button" data-copy="#c1">copy</button></div>
+          <div class="cmd-row"><code id="c2">herald curtain arm</code><button type="button" data-copy="#c2">copy</button></div>
+          <div class="cmd-row"><code id="c3">herald curtain doctor</code><button type="button" data-copy="#c3">copy</button></div>
+          <div class="cmd-row"><code id="c4">herald curtain status</code><button type="button" data-copy="#c4">copy</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="feature" class="section section-alt">
+      <div class="section-inner">
+        <p class="section-kicker reveal">When many panes work</p>
+        <h2 class="reveal">Fleet stage — one supporting reel</h2>
+        <p class="reveal" style="color:var(--ink-muted);max-width:46ch;margin:0 0 1.25rem">Hero sells cover/reveal. Fleet plate below stays secondary cinema.</p>
+        <div class="reveal"><div class="vid-frame">
+          <video preload="none" data-r7 data-auto muted loop playsinline poster="/posters/v06.jpg">
+            <source src="/video/v06.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <p class="art-caption">v06 · fleet stage · supporting</p></div>
+      </div>
+    </section>
+
+    <section class="cta-block">
+      <div class="reveal">
+        <h2>The curtain parts — the card speaks</h2>
+        <p>Stage-black. Gold fringe. Red house curtains. Zero runtime deps.</p>
+        <a class="btn-gold" href="https://github.com/muslewski/status-herald" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+    </section>
+  </main>
+  <footer class="foot">status-herald · round7-curtain-fleet · MIT</footer>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

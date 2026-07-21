@@ -1,0 +1,1611 @@
+/* ═══════════════════════════════════════════════════
+   HERALD — round2-cinema-curtain-call
+   Literal CSS curtains · gold fringe · stage draw
+   ═══════════════════════════════════════════════════ */
+
+:root {
+  --bg: #000000;
+  --bg-elev: #080606;
+  --curtain: #4a1020;
+  --curtain-deep: #2a0812;
+  --curtain-mid: #6b1830;
+  --ink: #f5edd8;
+  --ink-muted: #a89b7c;
+  --ink-dim: #5c5340;
+  --gold: #c9a227;
+  --gold-soft: #e8d48b;
+  --gold-deep: #8a7018;
+  --working: #c9a227;
+  --done: #7cb87c;
+  --needs: #e8a040;
+  --line: rgba(201, 162, 39, 0.25);
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "Source Sans 3", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --max: 920px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --curtain-open: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .stage-proscenium .curtain.panel.left {
+    transform: translateX(-86%) !important;
+  }
+  .stage-proscenium .curtain.panel.right {
+    transform: translateX(86%) !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ═══ Literal parting curtains ═══ */
+.stage-proscenium {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  overflow: hidden;
+}
+
+.curtain.panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 52%;
+  transition: transform 1.6s var(--ease);
+  will-change: transform;
+}
+
+.curtain.panel.left {
+  left: 0;
+  transform: translateX(0);
+  background: linear-gradient(90deg, var(--curtain-deep), var(--curtain) 40%, var(--curtain-mid) 70%, var(--curtain-deep));
+  box-shadow: 8px 0 40px rgba(0, 0, 0, 0.6);
+}
+
+.curtain.panel.right {
+  right: 0;
+  transform: translateX(0);
+  background: linear-gradient(270deg, var(--curtain-deep), var(--curtain) 40%, var(--curtain-mid) 70%, var(--curtain-deep));
+  box-shadow: -8px 0 40px rgba(0, 0, 0, 0.6);
+}
+
+body.curtains-open .curtain.panel.left {
+  transform: translateX(-86%);
+}
+
+body.curtains-open .curtain.panel.right {
+  transform: translateX(86%);
+}
+
+.curtain .pleats {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0,
+    transparent 14px,
+    rgba(0, 0, 0, 0.22) 14px,
+    rgba(0, 0, 0, 0.22) 18px,
+    transparent 18px,
+    transparent 28px,
+    rgba(255, 255, 255, 0.03) 28px,
+    rgba(255, 255, 255, 0.03) 30px
+  );
+  opacity: 0.9;
+}
+
+.curtain .fringe {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 28px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--gold-deep) 0 4px,
+    var(--gold) 4px 6px,
+    transparent 6px 10px,
+    var(--gold-soft) 10px 12px,
+    transparent 12px 16px
+  );
+  opacity: 0.85;
+  mask-image: linear-gradient(180deg, #000, transparent);
+  -webkit-mask-image: linear-gradient(180deg, #000, transparent);
+}
+
+.valance {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 52px;
+  background: linear-gradient(180deg, var(--curtain-deep), var(--curtain) 60%, transparent);
+  z-index: 2;
+  opacity: 0.95;
+  transition: opacity 1s var(--ease), transform 1.4s var(--ease);
+}
+
+body.curtains-open .valance {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.valance-fringe {
+  bottom: -6px;
+  height: 18px;
+}
+
+/* Stay above page sections so content never paints over residual curtains.
+   pointer-events:none already — nav (z:50) stays above for clicks. */
+body.curtains-open .stage-proscenium {
+  z-index: 30;
+}
+
+a {
+  color: var(--gold-soft);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--gold);
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--gold-soft);
+}
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem clamp(1rem, 4vw, 2rem);
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+.nav-mark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.16em;
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: none;
+  gap: 1.25rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.nav-links a {
+  color: var(--ink-muted);
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  color: var(--gold);
+}
+
+.nav-cta {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--gold);
+  text-decoration: none;
+  border: 1px solid var(--line);
+  padding: 0.45rem 0.9rem;
+}
+
+.nav-cta:hover {
+  border-color: var(--gold);
+  background: rgba(201, 162, 39, 0.08);
+}
+
+@media (min-width: 820px) {
+  .nav-links {
+    display: flex;
+  }
+}
+
+.hero {
+  position: relative;
+  z-index: 0;
+  text-align: center;
+  /* Extra bottom air so the stage sill reads as floor, not a second curtain */
+  padding: clamp(4rem, 12vw, 7rem) 1.25rem clamp(2.5rem, 6vw, 3.5rem);
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 1.4rem;
+}
+
+.wordmark {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3.6rem, 14vw, 7.5rem);
+  line-height: 0.95;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  text-shadow: 0 0 50px rgba(201, 162, 39, 0.35);
+}
+
+.tagline {
+  margin: 1.6rem auto 1.75rem;
+  max-width: 32em;
+  font-size: clamp(1.05rem, 2.2vw, 1.32rem);
+  color: var(--ink-muted);
+}
+
+.hero-states {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem 1rem;
+  margin-bottom: 1.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+
+.state {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--line);
+  color: var(--ink-muted);
+}
+
+.state.working {
+  color: var(--working);
+  border-color: rgba(201, 162, 39, 0.5);
+  box-shadow: 0 0 20px rgba(201, 162, 39, 0.12);
+}
+
+.state.done {
+  color: var(--done);
+  border-color: rgba(124, 184, 124, 0.35);
+}
+
+.state.needs {
+  color: var(--needs);
+  border-color: rgba(232, 160, 64, 0.4);
+}
+
+.curtain-card {
+  width: min(100%, 320px);
+  background: #050504;
+  border: 1px solid var(--gold);
+  box-shadow:
+    0 0 0 1px rgba(201, 162, 39, 0.12),
+    0 20px 50px rgba(0, 0, 0, 0.8),
+    0 0 40px rgba(201, 162, 39, 0.12);
+  padding: 1.65rem 1.4rem 1.2rem;
+  text-align: center;
+}
+
+.card-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  color: var(--working);
+  margin-bottom: 0.55rem;
+}
+
+.card-timer {
+  color: var(--ink-muted);
+  font-size: 0.95rem;
+}
+
+.card-meta {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-dim);
+  margin-bottom: 0.85rem;
+}
+
+.card-hint {
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--ink-dim);
+}
+
+.bar-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: min(100%, 620px);
+  margin: 0 auto 2rem;
+  text-align: left;
+}
+
+.bar-strip.nested {
+  margin: 0;
+  width: 100%;
+}
+
+.statusline-chip {
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  padding: 0.28rem 0.65rem;
+  background: #1a1408;
+  border: 1px solid rgba(232, 160, 64, 0.5);
+  color: #f0c060;
+}
+
+.statusline-chip[data-state='done'] {
+  background: #0c1610;
+  border-color: rgba(124, 184, 124, 0.4);
+  color: var(--done);
+}
+
+.statusline-chip[data-state='needs'] {
+  background: #1a1008;
+  border-color: rgba(232, 160, 64, 0.55);
+  color: var(--needs);
+}
+
+.tmux-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  padding: 0.4rem 0.65rem;
+  background: #0c0c0c;
+  border: 1px solid #222;
+  color: #9a9080;
+}
+
+.tb-sess {
+  color: var(--gold);
+}
+
+.tb-win {
+  color: #c8c0a8;
+}
+
+.tb-win.dim {
+  opacity: 0.4;
+}
+
+.tb-spacer {
+  flex: 1;
+}
+
+.tb-gauge {
+  color: #7a9ab0;
+}
+
+.tb-state {
+  color: var(--working);
+}
+
+.tb-clock {
+  color: #666;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-bottom: 1.4rem;
+}
+
+.btn-gold {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #0a0800;
+  background: linear-gradient(180deg, var(--gold-soft), var(--gold));
+  padding: 0.85rem 1.6rem;
+  text-decoration: none;
+  box-shadow: 0 0 32px rgba(201, 162, 39, 0.28);
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.btn-gold:hover {
+  color: #0a0800;
+  transform: translateY(-1px);
+  box-shadow: 0 0 44px rgba(201, 162, 39, 0.4);
+}
+
+.btn-gold.large {
+  font-size: 1rem;
+  padding: 1rem 1.8rem;
+}
+
+.btn-ghost {
+  display: inline-block;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--ink-muted);
+  border: 1px solid var(--line);
+  padding: 0.85rem 1.4rem;
+  text-decoration: none;
+}
+
+.btn-ghost:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+.hero-meta {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin: 0;
+}
+
+/*
+ * Stage sill — gold floor line under the hero.
+ * Proscenium curtains are the ONLY curtain pair; no INTERMISSION / mid-page
+ * curtain clones (those doubled the motif and looked like a second stage).
+ */
+.stage-sill {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  margin: 0 auto;
+  max-width: min(920px, 92vw);
+  pointer-events: none;
+}
+
+.stage-sill--quiet {
+  height: 20px;
+  opacity: 0.65;
+}
+
+.stage-sill-line {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gold-deep) 12%,
+    var(--gold) 50%,
+    var(--gold-deep) 88%,
+    transparent 100%
+  );
+  box-shadow: 0 0 12px rgba(201, 162, 39, 0.25);
+}
+
+.stage-sill-line::after {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 6px;
+  margin: -3px auto 0;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 10px rgba(201, 162, 39, 0.55);
+  opacity: 0.85;
+}
+
+.section {
+  position: relative;
+  z-index: 0;
+  padding: clamp(3.5rem, 8vw, 5.5rem) 1.5rem;
+}
+
+.section-alt {
+  background: var(--bg-elev);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.section-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.section-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 0.75rem;
+}
+
+.section h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.9rem, 4.5vw, 2.7rem);
+  line-height: 1.18;
+  margin: 0 0 2rem;
+}
+
+.problem-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 700px) {
+  .problem-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.problem-card {
+  border: 1px solid var(--line);
+  padding: 1.4rem 1.25rem;
+  background: linear-gradient(160deg, rgba(74, 16, 32, 0.2), transparent 65%);
+}
+
+.problem-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 500;
+  margin: 0 0 0.6rem;
+  color: var(--gold-soft);
+}
+
+.problem-card p {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 0.95rem;
+}
+
+.solution-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.solution-list li {
+  padding: 1.1rem 1.25rem;
+  border-left: 2px solid var(--gold);
+  background: rgba(201, 162, 39, 0.04);
+  color: var(--ink-muted);
+}
+
+.solution-list strong {
+  color: var(--ink);
+}
+
+.pillars {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .pillars {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .pillars {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.pillar {
+  border: 1px solid var(--line);
+  padding: 1.35rem 1.2rem;
+}
+
+.pillar-num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--gold-deep);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.pillar h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem;
+}
+
+.pillar p {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 0.92rem;
+}
+
+.steps {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  counter-reset: step;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.steps li {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: 0.75rem;
+  align-items: center;
+  counter-increment: step;
+}
+
+@media (max-width: 540px) {
+  .steps li {
+    grid-template-columns: 1fr;
+  }
+}
+
+.step-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.step-label::before {
+  content: counter(step, decimal-leading-zero) ' · ';
+  color: var(--ink-dim);
+}
+
+.cmd {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  background: #050505;
+  border: 1px solid var(--line);
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.cmd:hover,
+.cmd:focus-visible {
+  border-color: var(--gold);
+  outline: none;
+  background: rgba(201, 162, 39, 0.06);
+}
+
+.cmd.copied {
+  border-color: var(--done);
+}
+
+.cmd code {
+  color: var(--gold-soft);
+  font-size: 0.88rem;
+}
+
+.copy-hint {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  flex-shrink: 0;
+}
+
+.aside {
+  font-size: 0.9rem;
+  color: var(--ink-dim);
+  margin: 0;
+}
+
+.demo-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.mini-proscenium {
+  position: relative;
+  min-height: 260px;
+  border: 1px solid var(--line);
+  background: #030303;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem 2.5rem;
+}
+
+.mp-curtain {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 22%;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--curtain-deep) 0,
+    var(--curtain) 8px,
+    var(--curtain-mid) 14px,
+    var(--curtain-deep) 22px
+  );
+  opacity: 0.85;
+}
+
+.mp-curtain.left {
+  left: 0;
+  box-shadow: 6px 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.mp-curtain.right {
+  right: 0;
+  box-shadow: -6px 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.mp-fringe {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 16px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--gold-deep) 0 3px,
+    var(--gold) 3px 5px,
+    transparent 5px 9px
+  );
+  opacity: 0.65;
+}
+
+.mp-stage {
+  position: relative;
+  z-index: 1;
+}
+
+.demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem;
+}
+
+.mini-card {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--line);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.mini-card.working {
+  color: var(--working);
+  border-color: rgba(201, 162, 39, 0.4);
+}
+
+.mini-card.done {
+  color: var(--done);
+  border-color: rgba(124, 184, 124, 0.35);
+}
+
+.mini-card.needs {
+  color: var(--needs);
+  border-color: rgba(232, 160, 64, 0.4);
+}
+
+.cta {
+  text-align: center;
+  background: radial-gradient(ellipse 55% 50% at 50% 100%, rgba(201, 162, 39, 0.1), transparent 70%);
+}
+
+.cta-inner {
+  max-width: 560px;
+}
+
+.cta h2 {
+  margin-bottom: 0.75rem;
+}
+
+.cta p {
+  color: var(--ink-muted);
+  margin: 0 0 1.75rem;
+}
+
+.footer {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 1.5rem clamp(1rem, 4vw, 2rem);
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+#copy-toast {
+  position: fixed;
+  z-index: 200;
+  transform: translate(-50%, -120%);
+  pointer-events: none;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #0a0800;
+  background: var(--gold);
+  padding: 0.4rem 0.75rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+#copy-toast.show {
+  opacity: 1;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* ═══ R5 video + layout extras ═══ */
+.vid-frame {
+  border: 1px solid var(--line);
+  overflow: hidden;
+  background: #050505;
+  box-shadow: 0 0 48px rgba(201, 162, 39, 0.12);
+  max-width: 920px;
+  margin: 0 auto;
+}
+.vid-frame video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.vid-frame.hero-vid {
+  margin: 1.75rem auto 1rem;
+}
+.art-caption {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  text-align: center;
+  margin: 0.55rem 0 0;
+}
+.section {
+  position: relative;
+  z-index: 0;
+  padding: clamp(2.75rem, 7vw, 4.5rem) 1.25rem;
+}
+.section-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+.section-alt {
+  background: linear-gradient(180deg, rgba(20, 8, 12, 0.55), transparent);
+}
+.section-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 0.5rem;
+}
+.section h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.65rem, 3.2vw, 2.35rem);
+  font-weight: 700;
+  margin: 0 0 1.25rem;
+  color: var(--ink);
+}
+.problem-grid {
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 720px) {
+  .problem-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.problem-card,
+.pillar {
+  border: 1px solid var(--line);
+  padding: 1.15rem;
+  background: rgba(10, 6, 8, 0.7);
+}
+.problem-card h3,
+.pillar h3 {
+  font-family: var(--font-display);
+  margin: 0 0 0.4rem;
+  font-size: 1.1rem;
+  color: var(--gold-soft);
+}
+.problem-card p,
+.pillar p {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 0.95rem;
+}
+.solution-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+.solution-list li {
+  border-left: 2px solid var(--gold-deep);
+  padding: 0.35rem 0 0.35rem 1rem;
+  color: var(--ink-muted);
+}
+.solution-list strong {
+  color: var(--gold-soft);
+}
+.pillars {
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 720px) {
+  .pillars {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.pillar-num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+}
+.cmd-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.cmd-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  background: rgba(10, 6, 8, 0.75);
+}
+.cmd-row button {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--gold);
+  font: inherit;
+  font-size: 0.72rem;
+  padding: 0.3rem 0.55rem;
+  cursor: pointer;
+}
+.cta-block {
+  text-align: center;
+  padding: clamp(2.5rem, 6vw, 4rem) 1.25rem;
+}
+.cta-block h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  margin: 0 0 0.75rem;
+}
+.cta-block p {
+  color: var(--ink-muted);
+  margin: 0 0 1.15rem;
+}
+.foot {
+  position: relative;
+  z-index: 0;
+  padding: 2rem 1.25rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.78rem;
+  color: var(--ink-dim);
+  text-align: center;
+}
+.btn-gold {
+  display: inline-flex;
+  padding: 0.55rem 1.15rem;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  background: var(--gold);
+  color: #000;
+  border: none;
+  cursor: pointer;
+}
+.btn-ghost {
+  display: inline-flex;
+  padding: 0.55rem 1.15rem;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid var(--line);
+  color: var(--gold-soft);
+  background: transparent;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+.hero-meta {
+  margin-top: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.06em;
+}
+.stage-sill {
+  height: 1px;
+  max-width: 200px;
+  margin: 0 auto;
+  background: var(--line);
+}
+.feature-split {
+  display: grid;
+  gap: 1.5rem;
+  align-items: center;
+}
+@media (min-width: 860px) {
+  .feature-split {
+    grid-template-columns: 1.1fr 1fr;
+  }
+}
+.curtain-card {
+  display: inline-block;
+  min-width: min(280px, 88vw);
+  text-align: left;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, #1a1014, #0a0608);
+  padding: 1rem 1.15rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(201, 162, 39, 0.08);
+}
+.card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--working);
+}
+.card-timer {
+  margin-left: auto;
+  color: var(--ink-muted);
+  font-size: 0.85rem;
+}
+.card-meta {
+  margin-top: 0.45rem;
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+}
+.card-hint {
+  margin: 0.55rem 0 0;
+  font-size: 0.75rem;
+  color: var(--ink-dim);
+}
+.bar-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  align-items: center;
+  margin: 1.25rem 0;
+}
+.statusline-chip {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid rgba(201, 162, 39, 0.45);
+  color: var(--working);
+}
+.tmux-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+  border: 1px solid var(--line);
+  padding: 0.45rem 0.75rem;
+  background: #0a0a0a;
+}
+.tb-state {
+  color: var(--working);
+}
+.tb-spacer {
+  flex: 1;
+}
+.tb-win.dim {
+  opacity: 0.5;
+}
+.states-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem;
+  margin: 1rem 0 1.5rem;
+}
+.main-pad {
+  /* clear residual open-curtain frame (~7–9% viewport each side) */
+  padding-left: clamp(1.25rem, 9vw, 7rem);
+  padding-right: clamp(1.25rem, 9vw, 7rem);
+}
+@media (min-width: 1100px) {
+  .main-pad {
+    padding-left: clamp(4.5rem, 10vw, 8rem);
+    padding-right: clamp(4.5rem, 10vw, 8rem);
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   R5 hero layout experiments (spotlight v01 centerpiece)
+   ═══════════════════════════════════════════════════ */
+
+/* shared */
+.hero-wide { max-width: 1100px; margin: 0 auto; }
+.hero-cap {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  text-align: center;
+  margin: 0.5rem 0 0;
+}
+
+/* 1) BLEED — video as stage backdrop under type */
+.hero-bleed {
+  position: relative;
+  z-index: 1;
+  min-height: min(88vh, 780px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: center;
+  padding: 0;
+  max-width: none;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+.hero-bleed .bleed-vid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-bleed .bleed-vid video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.55) saturate(1.05);
+}
+.hero-bleed .bleed-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 40%, rgba(201,162,39,0.14), transparent 70%),
+    linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.92) 100%);
+  pointer-events: none;
+}
+.hero-bleed .bleed-content {
+  position: relative;
+  z-index: 2;
+  width: min(920px, 100%);
+  padding: clamp(5rem, 12vw, 7rem) 1.25rem clamp(2.5rem, 6vw, 3.5rem);
+}
+.hero-bleed .wordmark {
+  text-shadow: 0 0 60px rgba(201,162,39,0.45), 0 4px 40px rgba(0,0,0,0.8);
+}
+.hero-bleed .tagline { color: #c8bea0; }
+.hero-bleed .curtain-card {
+  margin: 0 auto 1.25rem;
+  background: rgba(5,5,4,0.88);
+  backdrop-filter: blur(8px);
+}
+.hero-bleed .bar-strip { margin-bottom: 1.25rem; }
+
+/* 2) SPLIT — copy | film */
+.hero-split {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 7vw, 4rem) 1.25rem clamp(2rem, 5vw, 3rem);
+  text-align: left;
+}
+.hero-split-grid {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .hero-split-grid { grid-template-columns: 0.95fr 1.05fr; gap: 2.5rem; }
+}
+.hero-split .wordmark {
+  font-size: clamp(2.8rem, 8vw, 5.2rem);
+  letter-spacing: 0.08em;
+}
+.hero-split .tagline {
+  margin: 1rem 0 1.25rem;
+  max-width: 34em;
+}
+.hero-split .states-row { justify-content: flex-start; margin: 0 0 1.25rem; }
+.hero-split .hero-actions { justify-content: flex-start; }
+.hero-split .vid-frame {
+  margin: 0;
+  max-width: none;
+  box-shadow: 0 0 60px rgba(201,162,39,0.18), 0 24px 60px rgba(0,0,0,0.65);
+}
+.hero-split .curtain-card { width: min(100%, 300px); margin-bottom: 1rem; text-align: center; }
+.hero-split .bar-strip { align-items: stretch; width: 100%; margin: 0 0 1rem; }
+
+/* 3) FILM FIRST — cinema reel then title band */
+.hero-film-first { max-width: none; padding: 0; text-align: center; }
+.hero-film-first .film-band {
+  border-bottom: 1px solid var(--line);
+  background: #050505;
+}
+.hero-film-first .film-band .vid-frame {
+  max-width: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+}
+.hero-film-first .film-band video {
+  width: 100%;
+  max-height: min(62vh, 560px);
+  object-fit: cover;
+  display: block;
+}
+.hero-film-first .title-band {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: clamp(1.75rem, 4vw, 2.5rem) 1.25rem 2.25rem;
+}
+.hero-film-first .wordmark {
+  font-size: clamp(2.6rem, 9vw, 4.8rem);
+}
+.hero-film-first .tagline { margin: 0.85rem auto 1.1rem; }
+.hero-film-first .states-row { margin: 0 0 1.1rem; }
+
+/* 4) CARD ON FILM — floating curtain card over the plate */
+.hero-on-film {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 7vw, 4rem) 1.25rem 2.5rem;
+  text-align: center;
+}
+.hero-on-film .wordmark { font-size: clamp(2.8rem, 10vw, 5.5rem); }
+.hero-on-film .stage-plate {
+  position: relative;
+  margin: 1.5rem auto 1.25rem;
+  max-width: 860px;
+}
+.hero-on-film .stage-plate .vid-frame {
+  margin: 0;
+  max-width: none;
+  box-shadow: 0 0 70px rgba(201,162,39,0.2);
+}
+.hero-on-film .stage-plate .float-card {
+  position: absolute;
+  left: 50%;
+  bottom: 8%;
+  transform: translateX(-50%);
+  z-index: 3;
+  width: min(88%, 300px);
+}
+.hero-on-film .stage-plate .float-card .curtain-card {
+  width: 100%;
+  margin: 0;
+  background: rgba(5,5,4,0.92);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 0 0 1px rgba(201,162,39,0.2),
+    0 24px 50px rgba(0,0,0,0.85),
+    0 0 40px rgba(201,162,39,0.18);
+}
+@media (max-width: 520px) {
+  .hero-on-film .stage-plate .float-card { bottom: 4%; }
+}
+.hero-on-film .bar-strip { margin-top: 0.5rem; }
+
+/* 5) PROSCENIUM NEST — mini house frame around the film */
+.hero-nest {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 7vw, 4rem) 1.25rem 2.5rem;
+  text-align: center;
+}
+.hero-nest .wordmark { font-size: clamp(2.6rem, 9vw, 5rem); }
+.hero-nest .house-frame {
+  position: relative;
+  margin: 1.5rem auto 1rem;
+  max-width: 820px;
+  padding: 0 2.6rem;
+}
+.hero-nest .house-wing {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2.4rem;
+  z-index: 2;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--curtain-deep) 0,
+    var(--curtain) 7px,
+    var(--curtain-mid) 12px,
+    var(--curtain-deep) 18px
+  );
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+}
+.hero-nest .house-wing.left { left: 0; }
+.hero-nest .house-wing.right { right: 0; }
+.hero-nest .house-valance {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 18px;
+  z-index: 3;
+  background: linear-gradient(180deg, var(--curtain-deep), var(--curtain) 70%, transparent);
+  opacity: 0.9;
+  pointer-events: none;
+}
+.hero-nest .house-valance::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -6px;
+  height: 10px;
+  background: repeating-linear-gradient(90deg, var(--gold-deep) 0 3px, var(--gold) 3px 5px, transparent 5px 9px);
+  opacity: 0.7;
+}
+.hero-nest .house-frame .vid-frame {
+  margin: 0;
+  max-width: none;
+  border-color: rgba(201,162,39,0.35);
+}
+.hero-nest .house-sill {
+  height: 10px;
+  margin: 0 2.6rem;
+  background: linear-gradient(90deg, transparent, var(--gold-deep) 15%, var(--gold) 50%, var(--gold-deep) 85%, transparent);
+  opacity: 0.7;
+}
+.hero-nest .nest-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem;
+  align-items: flex-start;
+  margin-top: 1.5rem;
+}
+.hero-nest .nest-row .curtain-card { margin: 0; }
+.hero-nest .nest-row .bar-strip { margin: 0; align-items: stretch; width: min(100%, 340px); }
+@media (max-width: 640px) {
+  .hero-nest .house-frame { padding: 0 1.4rem; }
+  .hero-nest .house-wing { width: 1.3rem; }
+  .hero-nest .house-sill { margin: 0 1.4rem; }
+}
+
+
+/* curtain-safe stack: content never climbs above residual proscenium */
+main,
+.main-pad,
+.foot,
+footer {
+  position: relative;
+  z-index: 0;
+}
+
+/* scroll-hygiene: animations must not inflate page height or cause phantom scroll */
+html{
+  overflow-x:clip;
+}
+body{
+  overflow-x:clip;
+  /* avoid 100vh + fixed layers stacking extra scroll in iframes */
+  min-height:100%;
+  min-height:100dvh;
+}
+/* reveal uses transform only for paint — keep out of flow side-effects */
+.reveal{
+  /* smaller travel = less chance of overflow paint extending scrollport */
+  transform:translate3d(0,10px,0);
+  backface-visibility:hidden;
+}
+.reveal.visible{
+  transform:none;
+}
+/* fixed decorative layers never contribute to scroll size */
+.abyss,
+.atmos,
+.bolt-grid,
+.weld-glow,
+.plate-frame,
+.stage-proscenium,
+.rb-crosshair,
+#crosshair-root{
+  max-height:100dvh;
+}
+/* video min-heights were fighting natural aspect and bloating pages */
+.vid-frame video{
+  min-height:0 !important;
+}
+
+/* ═══ Card-on-film hero: caption + status bars aligned ═══
+   Later R5 overrides set .bar-strip { align-items:center } without width,
+   so the chip floated and the tmux strip wrapped into a vertical mess. */
+.hero-on-film {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.hero-on-film .eyebrow,
+.hero-on-film .wordmark,
+.hero-on-film .tagline {
+  width: 100%;
+}
+.hero-on-film .tagline {
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-on-film .states-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.55rem 0.75rem;
+  width: 100%;
+  max-width: 860px;
+  margin: 0.25rem auto 1.35rem;
+}
+.hero-on-film .state {
+  flex: 0 0 auto;
+}
+.hero-on-film .stage-plate {
+  width: 100%;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-on-film .hero-cap {
+  display: block;
+  width: 100%;
+  max-width: 860px;
+  margin: 0.65rem auto 1.15rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  line-height: 1.4;
+}
+/* Status strip: one centered column, same width as stage plate content */
+.hero-on-film .bar-strip {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.45rem;
+  width: min(100%, 620px);
+  max-width: 860px;
+  margin: 0 auto 1.5rem;
+  text-align: left;
+  box-sizing: border-box;
+}
+.hero-on-film .statusline-chip {
+  align-self: flex-start;
+  width: auto;
+  display: inline-flex;
+  white-space: nowrap;
+}
+.hero-on-film .tmux-bar {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.55rem 0.85rem;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+}
+.hero-on-film .tmux-bar > span {
+  flex: 0 0 auto;
+}
+.hero-on-film .tmux-bar .tb-spacer {
+  flex: 1 1 auto;
+  min-width: 0.75rem;
+}
+.hero-on-film .hero-actions {
+  justify-content: center;
+  width: 100%;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
