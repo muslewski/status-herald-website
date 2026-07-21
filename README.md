@@ -40,3 +40,11 @@ Vercel · **herald.muslewski.com**
 ## License
 
 MIT-family marketing site. Brand art © Mateusz Muslewski.
+
+## Community
+
+Product support lives on **[status-herald](https://github.com/muslewski/status-herald)**:
+
+- [Discussions](https://github.com/muslewski/status-herald/discussions) — questions & ideas
+- [Issues](https://github.com/muslewski/status-herald/issues) — bugs & features
+- Website-only fixes — open an issue here
