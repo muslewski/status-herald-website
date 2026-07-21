@@ -1609,3 +1609,21 @@ body{
   margin-left: auto;
   margin-right: auto;
 }
+
+:root {
+  --install-bg: #080606;
+  --install-bar: #100a0c;
+  --install-border: rgba(201, 162, 39, 0.28);
+  --install-text: #f5edd8;
+  --install-muted: #a89b7c;
+  --install-accent: #c9a227;
+  --install-cmd: #f5edd8;
+  --install-prompt: #e8d48b;
+  --install-hover: rgba(201, 162, 39, 0.1);
+  --install-radius: 2px;
+}
+.hero-actions .copy-block {
+  border: 1px solid var(--line);
+  background: rgba(10,6,8,.75);
+  color: var(--ink);
+}

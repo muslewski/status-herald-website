@@ -79,7 +79,7 @@
       </div>
       <div class="hero-actions reveal">
         <a class="btn-gold" href="#quickstart">Part the curtain</a>
-        <a class="btn-ghost" href="https://github.com/muslewski/status-herald" target="_blank" rel="noopener">GitHub</a>
+        <button type="button" class="copy-block" data-cmd="npm install -g status-herald" onclick="copyCmd(this)" tabindex="0" aria-label="Copy: npm install -g status-herald"><span class="copy-icon" aria-hidden="true">⎘</span><span class="c-prompt">$</span> <span class="c-cmd">npm install -g status-herald</span></button>
       </div>
     </section>
 
@@ -128,12 +128,105 @@
       <div class="section-inner">
         <p class="section-kicker reveal">Cue</p>
         <h2 class="reveal">Raise the curtain</h2>
-        <div class="cmd-list reveal">
-          <div class="cmd-row"><code id="c1">herald curtain install</code><button type="button" data-copy="#c1">copy</button></div>
-          <div class="cmd-row"><code id="c2">herald curtain arm</code><button type="button" data-copy="#c2">copy</button></div>
-          <div class="cmd-row"><code id="c3">herald curtain doctor</code><button type="button" data-copy="#c3">copy</button></div>
-          <div class="cmd-row"><code id="c4">herald curtain status</code><button type="button" data-copy="#c4">copy</button></div>
+        <p class="reveal" style="color:var(--ink-muted);max-width:46ch;margin:0 0 0.5rem">Install the CLI, wire hooks, arm the session. Click any line to copy.</p>
+    <div class="install-term reveal">
+      <div class="install-term-bar">
+        <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+        <span class="term-title">setup</span>
+      </div>
+      <div class="install-tabs" role="tablist" aria-label="Install method">
+        <button class="install-tab" id="herald-tab-npm" role="tab" aria-selected="true" aria-controls="herald-panel-npm" tabindex="0" type="button">npm</button><button class="install-tab" id="herald-tab-npx" role="tab" aria-selected="false" aria-controls="herald-panel-npx" tabindex="-1" type="button">npx</button><button class="install-tab" id="herald-tab-git" role="tab" aria-selected="false" aria-controls="herald-panel-git" tabindex="-1" type="button">git</button>
+      </div>
+      <div class="install-term-body">
+        <div class="install-panel" id="herald-panel-npm" role="tabpanel" aria-labelledby="herald-tab-npm">
+          <div class="install-step">
+            <div class="cmd-row" onclick="copyCmd(this)" data-cmd="npm install -g status-herald" role="button" tabindex="0" aria-label="Copy command: npm install -g status-herald">
+              <span class="c-prompt">$</span>
+              <span class="c-cmd">npm install -g status-herald</span>
+              <span class="copy-icon" aria-hidden="true">⎘</span>
+            </div>
+            <div class="install-hint"><span class="c-cmt">#1</span> Install globally — bins: <code>herald</code> · <code>status-herald</code></div>
+          </div>
+          <div class="install-step">
+            <div class="cmd-row" onclick="copyCmd(this)" data-cmd="herald curtain install" role="button" tabindex="0" aria-label="Copy command: herald curtain install">
+              <span class="c-prompt">$</span>
+              <span class="c-cmd">herald curtain install</span>
+              <span class="copy-icon" aria-hidden="true">⎘</span>
+            </div>
+            <div class="install-hint"><span class="c-cmt">#2</span> Wire Claude + Grok hooks (compat settings)</div>
+          </div>
+          <div class="install-step">
+            <div class="cmd-row" onclick="copyCmd(this)" data-cmd="herald curtain arm" role="button" tabindex="0" aria-label="Copy command: herald curtain arm">
+              <span class="c-prompt">$</span>
+              <span class="c-cmd">herald curtain arm</span>
+              <span class="copy-icon" aria-hidden="true">⎘</span>
+            </div>
+            <div class="install-hint"><span class="c-cmt">#3</span> Arm the current tmux session</div>
+          </div>
+          <div class="install-step">
+            <div class="cmd-row" onclick="copyCmd(this)" data-cmd="herald curtain doctor" role="button" tabindex="0" aria-label="Copy command: herald curtain doctor">
+              <span class="c-prompt">$</span>
+              <span class="c-cmd">herald curtain doctor</span>
+              <span class="copy-icon" aria-hidden="true">⎘</span>
+            </div>
+            <div class="install-hint"><span class="c-cmt">#4</span> Verify hooks, tmux, settle health</div>
+          </div>
         </div>
+        <div class="install-panel" id="herald-panel-npx" role="tabpanel" aria-labelledby="herald-tab-npx" hidden>
+          <div class="install-step">
+            <div class="cmd-row" onclick="copyCmd(this)" data-cmd="npx status-herald curtain install" role="button" tabindex="0" aria-label="Copy command: npx status-herald curtain install">
+              <span class="c-prompt">$</span>
+              <span class="c-cmd">npx status-herald curtain install</span>
+              <span class="copy-icon" aria-hidden="true">⎘</span>
+            </div>
+            <div class="install-hint"><span class="c-cmt">#1</span> Wire hooks without a global install</div>
+          </div>
+          <div class="install-step">
+            <div class="cmd-row" onclick="copyCmd(this)" data-cmd="npx status-herald curtain arm" role="button" tabindex="0" aria-label="Copy command: npx status-herald curtain arm">
+              <span class="c-prompt">$</span>
+              <span class="c-cmd">npx status-herald curtain arm</span>
+              <span class="copy-icon" aria-hidden="true">⎘</span>
+            </div>
+            <div class="install-hint"><span class="c-cmt">#2</span> Arm this session</div>
+          </div>
+          <div class="install-step">
+            <div class="cmd-row" onclick="copyCmd(this)" data-cmd="npx status-herald curtain doctor" role="button" tabindex="0" aria-label="Copy command: npx status-herald curtain doctor">
+              <span class="c-prompt">$</span>
+              <span class="c-cmd">npx status-herald curtain doctor</span>
+              <span class="copy-icon" aria-hidden="true">⎘</span>
+            </div>
+            <div class="install-hint"><span class="c-cmt">#3</span> Run the checklist</div>
+          </div>
+        </div>
+        <div class="install-panel" id="herald-panel-git" role="tabpanel" aria-labelledby="herald-tab-git" hidden>
+          <div class="install-step">
+            <div class="cmd-row" onclick="copyCmd(this)" data-cmd="git clone https://github.com/muslewski/status-herald.git" role="button" tabindex="0" aria-label="Copy command: git clone https://github.com/muslewski/status-herald.git">
+              <span class="c-prompt">$</span>
+              <span class="c-cmd">git clone https://github.com/muslewski/status-herald.git</span>
+              <span class="copy-icon" aria-hidden="true">⎘</span>
+            </div>
+            <div class="install-hint"><span class="c-cmt">#1</span> Clone the product repo</div>
+          </div>
+          <div class="install-step">
+            <div class="cmd-row" onclick="copyCmd(this)" data-cmd="cd status-herald &amp;&amp; npm install &amp;&amp; npm link" role="button" tabindex="0" aria-label="Copy command: cd status-herald &amp;&amp; npm install &amp;&amp; npm link">
+              <span class="c-prompt">$</span>
+              <span class="c-cmd">cd status-herald &amp;&amp; npm install &amp;&amp; npm link</span>
+              <span class="copy-icon" aria-hidden="true">⎘</span>
+            </div>
+            <div class="install-hint"><span class="c-cmt">#2</span> Link <code>herald</code> from source</div>
+          </div>
+          <div class="install-step">
+            <div class="cmd-row" onclick="copyCmd(this)" data-cmd="herald curtain install &amp;&amp; herald curtain arm" role="button" tabindex="0" aria-label="Copy command: herald curtain install &amp;&amp; herald curtain arm">
+              <span class="c-prompt">$</span>
+              <span class="c-cmd">herald curtain install &amp;&amp; herald curtain arm</span>
+              <span class="copy-icon" aria-hidden="true">⎘</span>
+            </div>
+            <div class="install-hint"><span class="c-cmt">#3</span> Wire + arm</div>
+          </div>
+        </div>
+        <div class="install-foot"><span class="ok">✓</span> Need Grok native hooks too? <code>herald curtain install grok</code></div>
+      </div>
+    </div>
       </div>
     </section>
 
@@ -155,7 +248,10 @@
       <div class="reveal">
         <h2>The curtain parts — the card speaks</h2>
         <p>Stage-black. Gold fringe. Red house curtains. Zero runtime deps.</p>
-        <a class="btn-gold" href="https://github.com/muslewski/status-herald" target="_blank" rel="noopener">View on GitHub →</a>
+        <div style="display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;align-items:center">
+          <button type="button" class="copy-block" data-cmd="npm install -g status-herald" onclick="copyCmd(this)" tabindex="0" aria-label="Copy: npm install -g status-herald"><span class="copy-icon" aria-hidden="true">⎘</span><span class="c-prompt">$</span> <span class="c-cmd">npm install -g status-herald</span></button>
+          <a class="btn-gold" href="https://github.com/muslewski/status-herald" target="_blank" rel="noopener">View on GitHub →</a>
+        </div>
       </div>
     </section>
   </main>

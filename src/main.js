@@ -1,3 +1,7 @@
+import "./install-ui.css";
+import { bootInstallUi } from "./install-ui.js";
+bootInstallUi();
+
 import "./r7-media.js";
 const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 // open curtains after short beat
@@ -31,27 +35,6 @@ document.querySelectorAll("video[data-auto]").forEach((v) => {
     v.muted = true;
     v.play().catch(() => {});
   }
-});
-
-document.querySelectorAll("[data-copy]").forEach((btn) => {
-  btn.addEventListener("click", async () => {
-    const sel = btn.getAttribute("data-copy");
-    const el = document.querySelector(sel);
-    const text = el?.textContent?.trim() || "";
-    try {
-      await navigator.clipboard.writeText(text);
-    } catch {
-      const ta = document.createElement("textarea");
-      ta.value = text;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      ta.remove();
-    }
-    const prev = btn.textContent;
-    btn.textContent = "copied";
-    setTimeout(() => (btn.textContent = prev), 1100);
-  });
 });
 
 // cycle demo card states if present
