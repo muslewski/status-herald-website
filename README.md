@@ -1,29 +1,42 @@
-# status-herald website
+<p align="center">
+  <img src="public/posters/v01.jpg" alt="HERALD — spotlight plate · curtain card on film" width="900" />
+</p>
 
-Public marketing one-pager for **[status-herald](https://github.com/muslewski/status-herald)**.
+<p align="center">
+  <a href="https://herald.muslewski.com"><img src="https://img.shields.io/badge/website-herald.muslewski.com-c9a227?style=for-the-badge&labelColor=000000" alt="Website"></a>
+  <a href="https://github.com/muslewski/status-herald"><img src="https://img.shields.io/badge/product-status--herald-000000?style=for-the-badge" alt="Product"></a>
+</p>
 
-- **Live:** https://herald.muslewski.com
-- **Stack:** Vite static site (Round 7 — responsive + fast media)
-- **Product repo:** https://github.com/muslewski/status-herald
+# status-herald — marketing website
+
+Public one-pager for **[status-herald](https://github.com/muslewski/status-herald)** — tmux curtain cards for agent fleets.
+
+**Live → [herald.muslewski.com](https://herald.muslewski.com)**
+
+> **Looking for the tool?** `herald curtain install` and the CLI live here:  
+> **https://github.com/muslewski/status-herald**
+
+## Brand
+
+Stage black · red proscenium curtains · gold fringe · **WORKING / DONE / NEEDS YOU** · card on film.
+
+| Asset | Role |
+|-------|------|
+| `public/video/v01.mp4` | Spotlight plate (seamless loop) |
+| `public/posters/v01.jpg` | Still / OG-friendly frame |
+| `public/video/v06.mp4` | Fleet stage supporting reel |
 
 ## Develop
 
 ```bash
-npm install
-npm run dev
-```
-
-## Build
-
-```bash
+npm install && npm run dev
 npm run build
-npm run preview
 ```
 
 ## Deploy
 
-Vercel project linked to this repo. Production domain: `herald.muslewski.com`.
+Vercel · **herald.muslewski.com**
 
 ## License
 
-MIT (same family as the product tool). Site content and brand art © Mateusz Muslewski / muslewski.
+MIT-family marketing site. Brand art © Mateusz Muslewski.
