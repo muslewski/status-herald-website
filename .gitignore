@@ -3,3 +3,9 @@ dist
 .vercel
 .DS_Store
 *.log
+
+# generated product docs (from sibling status-herald/docs via scripts/build-docs.mjs)
+generated/
+
+# Vercel/CI shallow clone of muslewski/status-herald (docs SSG source)
+.cache/

@@ -1,0 +1,16 @@
+{
+  "product": "status-herald",
+  "siblingDir": "../../status-herald",
+  "brandWord": "HERALD",
+  "siteName": "status-herald",
+  "siteUrl": "https://herald.muslewski.com",
+  "githubRepo": "muslewski/status-herald",
+  "themeColor": "#000000",
+  "bg": "#000000",
+  "fg": "#f5edd8",
+  "fontsCss": "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Source+Sans+3:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap",
+  "favicon": "/favicon.ico",
+  "ogImage": "/og.jpg",
+  "footDoctrine": "The curtain parts — the card speaks.",
+  "ghEditPath": "docs/"
+}
