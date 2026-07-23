@@ -216,7 +216,8 @@ code {
 
 .nav-links {
   display: none;
-  gap: 1.25rem;
+  align-items: center;
+  gap: 1rem;
   font-size: 0.78rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -238,6 +239,7 @@ code {
   text-decoration: none;
   border: 1px solid var(--line);
   padding: 0.45rem 0.9rem;
+  flex-shrink: 0;
 }
 
 .nav-cta:hover {
@@ -1622,8 +1624,30 @@ body{
   --install-hover: rgba(201, 162, 39, 0.1);
   --install-radius: 2px;
 }
-.hero-actions .copy-block {
+/* Hero npm chip — stage gold (tokens from --install-*) */
+.hero-actions .copy-block,
+.cta-block .copy-block {
   border: 1px solid var(--line);
-  background: rgba(10,6,8,.75);
+  background: rgba(10, 6, 8, 0.85);
   color: var(--ink);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+}
+.hero-actions .copy-block:hover,
+.hero-actions .copy-block:focus-visible,
+.cta-block .copy-block:hover,
+.cta-block .copy-block:focus-visible {
+  border-color: var(--gold);
+  box-shadow: 0 0 20px rgba(201, 162, 39, 0.18);
+}
+.hero-actions .copy-block .c-prompt,
+.cta-block .copy-block .c-prompt { color: var(--gold-soft); }
+.hero-actions .copy-block .c-cmd,
+.cta-block .copy-block .c-cmd { color: var(--ink); }
+.hero-actions .copy-block .copy-icon,
+.cta-block .copy-block .copy-icon { color: var(--ink-dim); }
+.hero-actions .copy-block.copied,
+.cta-block .copy-block.copied {
+  border-color: var(--gold);
+  color: var(--gold);
 }
